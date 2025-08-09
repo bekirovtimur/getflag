@@ -296,11 +296,11 @@
                         <h3>🐚 Bash/cURL</h3>
                         <div class="code-block">
 <span class="comment"># Get a flag</span>
-curl -s https://getflag.netlify.app/US
+curl -s https://getflag.vercel.app/US
 <span class="comment"># Returns: 🇺🇸</span>
 
 <span class="comment"># Use in scripts</span>
-flag=$(curl -s https://getflag.netlify.app/RU)
+flag=$(curl -s https://getflag.vercel.app/RU)
 echo <span class="string">"Russia: $flag"</span>
                         </div>
                     </div>
@@ -312,7 +312,7 @@ echo <span class="string">"Russia: $flag"</span>
 
 <span class="keyword">def</span> get_flag(code):
     response = requests.get(
-        <span class="string">f'https://getflag.netlify.app/{code}'</span>
+        <span class="string">f'https://getflag.vercel.app/{code}'</span>
     )
     <span class="keyword">return</span> response.text
 
@@ -326,7 +326,7 @@ print(<span class="string">f"Japan: {flag}"</span>)
                         <div class="code-block">
 <span class="keyword">async function</span> getFlag(code) {
     <span class="keyword">const</span> response = <span class="keyword">await</span> fetch(
-        <span class="string">`https://getflag.netlify.app/${code}`</span>
+        <span class="string">`https://getflag.vercel.app/${code}`</span>
     );
     <span class="keyword">return await</span> response.text();
 }
@@ -343,7 +343,7 @@ getFlag(<span class="string">'DE'</span>).then(flag => {
 <span class="keyword">&lt;?php</span>
 <span class="keyword">function</span> getFlag($code) {
     <span class="keyword">return</span> file_get_contents(
-        <span class="string">"https://getflag.netlify.app/$code"</span>
+        <span class="string">"https://getflag.vercel.app/$code"</span>
     );
 }
 
@@ -389,11 +389,11 @@ echo <span class="string">"Canada: $flag"</span>;
                         <h3>🐚 Bash/cURL</h3>
                         <div class="code-block">
 <span class="comment"># Получить флаг</span>
-curl -s https://getflag.netlify.app/US
+curl -s https://getflag.vercel.app/US
 <span class="comment"># Возвращает: 🇺🇸</span>
 
 <span class="comment"># Использование в скриптах</span>
-flag=$(curl -s https://getflag.netlify.app/RU)
+flag=$(curl -s https://getflag.vercel.app/RU)
 echo <span class="string">"Россия: $flag"</span>
                         </div>
                     </div>
@@ -405,7 +405,7 @@ echo <span class="string">"Россия: $flag"</span>
 
 <span class="keyword">def</span> get_flag(code):
     response = requests.get(
-        <span class="string">f'https://getflag.netlify.app/{code}'</span>
+        <span class="string">f'https://getflag.vercel.app/{code}'</span>
     )
     <span class="keyword">return</span> response.text
 
@@ -419,7 +419,7 @@ print(<span class="string">f"Япония: {flag}"</span>)
                         <div class="code-block">
 <span class="keyword">async function</span> getFlag(code) {
     <span class="keyword">const</span> response = <span class="keyword">await</span> fetch(
-        <span class="string">`https://getflag.netlify.app/${code}`</span>
+        <span class="string">`https://getflag.vercel.app/${code}`</span>
     );
     <span class="keyword">return await</span> response.text();
 }
@@ -436,7 +436,7 @@ getFlag(<span class="string">'DE'</span>).then(flag => {
 <span class="keyword">&lt;?php</span>
 <span class="keyword">function</span> getFlag($code) {
     <span class="keyword">return</span> file_get_contents(
-        <span class="string">"https://getflag.netlify.app/$code"</span>
+        <span class="string">"https://getflag.vercel.app/$code"</span>
     );
 }
 

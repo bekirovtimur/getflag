@@ -22,13 +22,13 @@ A simple and lightweight API that returns country flag emojis by country codes. 
 
 #### Basic Usage
 ```bash
-curl -s https://getflag.netlify.app/US
+curl -s https://getflag.vercel.app/US
 # Returns: 🇺🇸
 
-curl -s https://getflag.netlify.app/RU
+curl -s https://getflag.vercel.app/RU
 # Returns: 🇷🇺
 
-curl -s https://getflag.netlify.app/FI
+curl -s https://getflag.vercel.app/FI
 # Returns: 🇫🇮
 ```
 
@@ -37,11 +37,11 @@ curl -s https://getflag.netlify.app/FI
 #!/bin/bash
 # Get flag for a country
 country_code="DE"
-flag=$(curl -s https://getflag.netlify.app/$country_code)
+flag=$(curl -s https://getflag.vercel.app/$country_code)
 echo "Flag for $country_code: $flag"
 
 # Use in variables
-FINLAND=$(curl -s https://getflag.netlify.app/FI)
+FINLAND=$(curl -s https://getflag.vercel.app/FI)
 echo "Finland flag: $FINLAND"
 ```
 
@@ -50,7 +50,7 @@ echo "Finland flag: $FINLAND"
 import requests
 
 def get_country_flag(country_code):
-    response = requests.get(f'https://getflag.netlify.app/{country_code}')
+    response = requests.get(f'https://getflag.vercel.app/{country_code}')
     return response.text
 
 # Usage
@@ -68,7 +68,7 @@ for country in countries:
 ```php
 <?php
 function getCountryFlag($countryCode) {
-    return file_get_contents("https://getflag.netlify.app/$countryCode");
+    return file_get_contents("https://getflag.vercel.app/$countryCode");
 }
 
 // Usage
@@ -88,7 +88,7 @@ foreach ($countries as $country) {
 ```javascript
 // Using fetch (Node.js 18+ or browser)
 async function getCountryFlag(countryCode) {
-    const response = await fetch(`https://getflag.netlify.app/${countryCode}`);
+    const response = await fetch(`https://getflag.vercel.app/${countryCode}`);
     return await response.text();
 }
 
@@ -101,7 +101,7 @@ getCountryFlag('GB').then(flag => {
 const axios = require('axios');
 
 async function getFlag(countryCode) {
-    const response = await axios.get(`https://getflag.netlify.app/${countryCode}`);
+    const response = await axios.get(`https://getflag.vercel.app/${countryCode}`);
     return response.data;
 }
 ```
@@ -111,7 +111,7 @@ async function getFlag(countryCode) {
 # Check server status with flags
 servers=("US" "EU" "AS")
 for region in "${servers[@]}"; do
-    flag=$(curl -s https://getflag.netlify.app/$region)
+    flag=$(curl -s https://getflag.vercel.app/$region)
     echo "Server $region $flag: $(ping -c1 $region.example.com | grep 'time=')"
 done
 ```
@@ -199,13 +199,13 @@ This project is open source and available under the [MIT License](LICENSE).
 
 #### Базовое использование
 ```bash
-curl -s https://getflag.netlify.app/US
+curl -s https://getflag.vercel.app/US
 # Возвращает: 🇺🇸
 
-curl -s https://getflag.netlify.app/RU
+curl -s https://getflag.vercel.app/RU
 # Возвращает: 🇷🇺
 
-curl -s https://getflag.netlify.app/FI
+curl -s https://getflag.vercel.app/FI
 # Возвращает: 🇫🇮
 ```
 
@@ -214,11 +214,11 @@ curl -s https://getflag.netlify.app/FI
 #!/bin/bash
 # Получить флаг для страны
 country_code="DE"
-flag=$(curl -s https://getflag.netlify.app/$country_code)
+flag=$(curl -s https://getflag.vercel.app/$country_code)
 echo "Флаг для $country_code: $flag"
 
 # Использование в переменных
-FINLAND=$(curl -s https://getflag.netlify.app/FI)
+FINLAND=$(curl -s https://getflag.vercel.app/FI)
 echo "Флаг Финляндии: $FINLAND"
 ```
 
@@ -227,7 +227,7 @@ echo "Флаг Финляндии: $FINLAND"
 import requests
 
 def get_country_flag(country_code):
-    response = requests.get(f'https://getflag.netlify.app/{country_code}')
+    response = requests.get(f'https://getflag.vercel.app/{country_code}')
     return response.text
 
 # Использование
@@ -245,7 +245,7 @@ for country in countries:
 ```php
 <?php
 function getCountryFlag($countryCode) {
-    return file_get_contents("https://getflag.netlify.app/$countryCode");
+    return file_get_contents("https://getflag.vercel.app/$countryCode");
 }
 
 // Использование
@@ -265,7 +265,7 @@ foreach ($countries as $country) {
 ```javascript
 // Используя fetch (Node.js 18+ или браузер)
 async function getCountryFlag(countryCode) {
-    const response = await fetch(`https://getflag.netlify.app/${countryCode}`);
+    const response = await fetch(`https://getflag.vercel.app/${countryCode}`);
     return await response.text();
 }
 
@@ -278,7 +278,7 @@ getCountryFlag('GB').then(flag => {
 const axios = require('axios');
 
 async function getFlag(countryCode) {
-    const response = await axios.get(`https://getflag.netlify.app/${countryCode}`);
+    const response = await axios.get(`https://getflag.vercel.app/${countryCode}`);
     return response.data;
 }
 ```
@@ -288,7 +288,7 @@ async function getFlag(countryCode) {
 # Проверка статуса серверов с флагами
 servers=("US" "EU" "AS")
 for region in "${servers[@]}"; do
-    flag=$(curl -s https://getflag.netlify.app/$region)
+    flag=$(curl -s https://getflag.vercel.app/$region)
     echo "Сервер $region $flag: $(ping -c1 $region.example.com | grep 'time=')"
 done
 ```

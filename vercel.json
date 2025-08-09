@@ -36,5 +36,17 @@
       "source": "/",
       "destination": "/index.html"
     }
+  ],
+  "routes": [
+    {
+      "src": "/([A-Z]{2})",
+      "dest": "/$1",
+      "status": 200
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/404",
+      "status": 404
+    }
   ]
 }

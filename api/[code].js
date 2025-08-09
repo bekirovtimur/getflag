@@ -2,7 +2,8 @@ import { readFileSync, existsSync } from 'fs';
 import { join } from 'path';
 
 export default function handler(req, res) {
-  const { code } = req.query;
+  // Получаем код из URL пути
+  const code = req.query.code || req.url.split('/').pop();
   
   if (!code || typeof code !== 'string' || code.length !== 2) {
     return res.status(404).send('❔');

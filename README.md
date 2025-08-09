@@ -167,23 +167,6 @@ npx http-server
 curl -s http://localhost:8000/US
 ```
 
-#### Deploy to Netlify
-1. Fork this repository
-2. Connect your GitHub account to Netlify
-3. Deploy directly from GitHub
-4. Your API will be available at `https://getflag.netlify.app/`
-
-#### Deploy to Vercel
-```bash
-npm i -g vercel
-vercel --prod
-```
-
-#### Deploy to GitHub Pages
-1. Enable GitHub Pages in repository settings
-2. Set source to main branch
-3. Access via `https://bekirovtimur.github.io/getflag/`
-
 ### 🔧 Technical Details
 
 - **File Structure**: Each country code corresponds to a static file containing the flag emoji
@@ -191,10 +174,6 @@ vercel --prod
 - **File Size**: Each flag file is ~4 bytes (UTF-8 encoded emoji)
 - **Total Files**: 250+ country flag files
 - **No Database**: Pure static file serving for maximum performance
-
-### 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
 
 ### 📄 License
 
@@ -365,23 +344,6 @@ npx http-server
 curl -s http://localhost:8000/US
 ```
 
-#### Развертывание на Netlify
-1. Сделайте форк этого репозитория
-2. Подключите свой GitHub аккаунт к Netlify
-3. Разверните напрямую из GitHub
-4. Ваш API будет доступен по адресу `https://getflag.netlify.app/`
-
-#### Развертывание на Vercel
-```bash
-npm i -g vercel
-vercel --prod
-```
-
-#### Развертывание на GitHub Pages
-1. Включите GitHub Pages в настройках репозитория
-2. Установите источник как main branch
-3. Доступ через `https://bekirovtimur.github.io/getflag/`
-
 ### 🔧 Технические детали
 
 - **Структура файлов**: Каждый код страны соответствует статическому файлу, содержащему эмодзи флага
@@ -389,10 +351,6 @@ vercel --prod
 - **Размер файла**: Каждый файл флага ~4 байта (эмодзи в кодировке UTF-8)
 - **Общее количество файлов**: 250+ файлов флагов стран
 - **Без базы данных**: Чистая подача статических файлов для максимальной производительности
-
-### 🤝 Участие в разработке
-
-Вклад в проект приветствуется! Пожалуйста, не стесняйтесь отправлять Pull Request.
 
 ### 📄 Лицензия
 

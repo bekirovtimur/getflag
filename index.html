@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country Flags API 🌍</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .language-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .lang-btn:hover, .lang-btn.active {
+            background: rgba(255,255,255,0.3);
+            border-color: rgba(255,255,255,0.5);
+            transform: translateY(-2px);
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .demo-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border-left: 5px solid #667eea;
+        }
+
+        .demo-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .demo-input {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .demo-input input {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .demo-input input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .demo-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .demo-btn:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+        }
+
+        .demo-result {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 15px;
+            font-family: 'Courier New', monospace;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            font-size: 2rem;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .code-block .comment {
+            color: #68d391;
+        }
+
+        .code-block .string {
+            color: #fbb6ce;
+        }
+
+        .code-block .keyword {
+            color: #90cdf4;
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .example-card {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .example-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .example-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .country-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .country-item {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .country-item:hover {
+            border-color: #667eea;
+            transform: scale(1.05);
+        }
+
+        .country-flag {
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .country-code {
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            opacity: 0.8;
+            margin-top: 40px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            .language-switcher {
+                position: relative;
+                top: auto;
+                right: auto;
+                justify-content: center;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="language-switcher">
+        <a href="#" class="lang-btn active" onclick="switchLanguage('en')">🇺🇸 English</a>
+        <a href="#" class="lang-btn" onclick="switchLanguage('ru')">🇷🇺 Русский</a>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>🌍 Country Flags API</h1>
+            <p class="lang-en">Simple API to get country flag emojis by country codes</p>
+            <p class="lang-ru hidden">Простой API для получения эмодзи флагов стран по кодам стран</p>
+        </div>
+
+        <div class="main-content">
+            <!-- English Content -->
+            <div class="lang-en">
+                <div class="demo-section">
+                    <h2 class="demo-title">🚀 Try it now!</h2>
+                    <div class="demo-input">
+                        <input type="text" id="countryInput" placeholder="Enter country code (e.g., US, RU, FI)" maxlength="2">
+                        <button class="demo-btn" onclick="getFlag()">Get Flag</button>
+                    </div>
+                    <div class="demo-result" id="flagResult">Enter a country code above...</div>
+                </div>
+
+                <h2>📖 What is this?</h2>
+                <p>A simple and fast API that returns country flag emojis. Perfect for automation scripts, console applications, and any project that needs quick access to country flags.</p>
+
+                <h2>🔧 How to use</h2>
+                <div class="examples-grid">
+                    <div class="example-card">
+                        <h3>🐚 Bash/cURL</h3>
+                        <div class="code-block">
+<span class="comment"># Get a flag</span>
+curl -s https://getflag.netlify.app/US
+<span class="comment"># Returns: 🇺🇸</span>
+
+<span class="comment"># Use in scripts</span>
+flag=$(curl -s https://getflag.netlify.app/RU)
+echo <span class="string">"Russia: $flag"</span>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <h3>🐍 Python</h3>
+                        <div class="code-block">
+<span class="keyword">import</span> requests
+
+<span class="keyword">def</span> get_flag(code):
+    response = requests.get(
+        <span class="string">f'https://getflag.netlify.app/{code}'</span>
+    )
+    <span class="keyword">return</span> response.text
+
+flag = get_flag(<span class="string">'JP'</span>)
+print(<span class="string">f"Japan: {flag}"</span>)
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <h3>🌐 JavaScript</h3>
+                        <div class="code-block">
+<span class="keyword">async function</span> getFlag(code) {
+    <span class="keyword">const</span> response = <span class="keyword">await</span> fetch(
+        <span class="string">`https://getflag.netlify.app/${code}`</span>
+    );
+    <span class="keyword">return await</span> response.text();
+}
+
+getFlag(<span class="string">'DE'</span>).then(flag => {
+    console.log(<span class="string">`Germany: ${flag}`</span>);
+});
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <h3>🐘 PHP</h3>
+                        <div class="code-block">
+<span class="keyword">&lt;?php</span>
+<span class="keyword">function</span> getFlag($code) {
+    <span class="keyword">return</span> file_get_contents(
+        <span class="string">"https://getflag.netlify.app/$code"</span>
+    );
+}
+
+$flag = getFlag(<span class="string">'CA'</span>);
+echo <span class="string">"Canada: $flag"</span>;
+<span class="keyword">?&gt;</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>🗺️ Popular Countries</h2>
+                <div class="country-grid" id="popularCountries">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+
+                <h2>✨ Features</h2>
+                <ul style="margin: 20px 0; padding-left: 20px;">
+                    <li><strong>Simple:</strong> Just make a GET request</li>
+                    <li><strong>Fast:</strong> Static files served directly</li>
+                    <li><strong>Complete:</strong> All 250+ country codes supported</li>
+                    <li><strong>No dependencies:</strong> Pure static hosting</li>
+                    <li><strong>Free:</strong> Open source and free to use</li>
+                </ul>
+            </div>
+
+            <!-- Russian Content -->
+            <div class="lang-ru hidden">
+                <div class="demo-section">
+                    <h2 class="demo-title">🚀 Попробуйте прямо сейчас!</h2>
+                    <div class="demo-input">
+                        <input type="text" id="countryInputRu" placeholder="Введите код страны (например, US, RU, FI)" maxlength="2">
+                        <button class="demo-btn" onclick="getFlagRu()">Получить флаг</button>
+                    </div>
+                    <div class="demo-result" id="flagResultRu">Введите код страны выше...</div>
+                </div>
+
+                <h2>📖 Что это такое?</h2>
+                <p>Простой и быстрый API, который возвращает эмодзи флагов стран. Идеально подходит для скриптов автоматизации, консольных приложений и любых проектов, которым нужен быстрый доступ к флагам стран.</p>
+
+                <h2>🔧 Как использовать</h2>
+                <div class="examples-grid">
+                    <div class="example-card">
+                        <h3>🐚 Bash/cURL</h3>
+                        <div class="code-block">
+<span class="comment"># Получить флаг</span>
+curl -s https://getflag.netlify.app/US
+<span class="comment"># Возвращает: 🇺🇸</span>
+
+<span class="comment"># Использование в скриптах</span>
+flag=$(curl -s https://getflag.netlify.app/RU)
+echo <span class="string">"Россия: $flag"</span>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <h3>🐍 Python</h3>
+                        <div class="code-block">
+<span class="keyword">import</span> requests
+
+<span class="keyword">def</span> get_flag(code):
+    response = requests.get(
+        <span class="string">f'https://getflag.netlify.app/{code}'</span>
+    )
+    <span class="keyword">return</span> response.text
+
+flag = get_flag(<span class="string">'JP'</span>)
+print(<span class="string">f"Япония: {flag}"</span>)
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <h3>🌐 JavaScript</h3>
+                        <div class="code-block">
+<span class="keyword">async function</span> getFlag(code) {
+    <span class="keyword">const</span> response = <span class="keyword">await</span> fetch(
+        <span class="string">`https://getflag.netlify.app/${code}`</span>
+    );
+    <span class="keyword">return await</span> response.text();
+}
+
+getFlag(<span class="string">'DE'</span>).then(flag => {
+    console.log(<span class="string">`Германия: ${flag}`</span>);
+});
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <h3>🐘 PHP</h3>
+                        <div class="code-block">
+<span class="keyword">&lt;?php</span>
+<span class="keyword">function</span> getFlag($code) {
+    <span class="keyword">return</span> file_get_contents(
+        <span class="string">"https://getflag.netlify.app/$code"</span>
+    );
+}
+
+$flag = getFlag(<span class="string">'CA'</span>);
+echo <span class="string">"Канада: $flag"</span>;
+<span class="keyword">?&gt;</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>🗺️ Популярные страны</h2>
+                <div class="country-grid" id="popularCountriesRu">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+
+                <h2>✨ Возможности</h2>
+                <ul style="margin: 20px 0; padding-left: 20px;">
+                    <li><strong>Простота:</strong> Просто сделайте GET-запрос</li>
+                    <li><strong>Скорость:</strong> Статические файлы подаются напрямую</li>
+                    <li><strong>Полнота:</strong> Поддерживаются все 250+ кодов стран</li>
+                    <li><strong>Без зависимостей:</strong> Чистый статический хостинг</li>
+                    <li><strong>Бесплатно:</strong> Открытый исходный код и бесплатное использование</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p class="lang-en">Made with ❤️ for developers around the world 🌍</p>
+            <p class="lang-ru hidden">Сделано с ❤️ для разработчиков по всему миру 🌍</p>
+            <p style="margin-top: 10px;">
+                <a href="https://github.com/bekirovtimur/getflag" target="_blank" style="color: white; text-decoration: none; opacity: 0.8; transition: opacity 0.3s ease;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+                    <span class="lang-en">⭐ Star on GitHub</span>
+                    <span class="lang-ru hidden">⭐ Поставить звезду на GitHub</span>
+                </a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const popularCountries = [
+            {code: 'US', name: 'United States', nameRu: 'США', flag: '🇺🇸'},
+            {code: 'RU', name: 'Russia', nameRu: 'Россия', flag: '🇷🇺'},
+            {code: 'CN', name: 'China', nameRu: 'Китай', flag: '🇨🇳'},
+            {code: 'JP', name: 'Japan', nameRu: 'Япония', flag: '🇯🇵'},
+            {code: 'DE', name: 'Germany', nameRu: 'Германия', flag: '🇩🇪'},
+            {code: 'GB', name: 'United Kingdom', nameRu: 'Великобритания', flag: '🇬🇧'},
+            {code: 'FR', name: 'France', nameRu: 'Франция', flag: '🇫🇷'},
+            {code: 'IT', name: 'Italy', nameRu: 'Италия', flag: '🇮🇹'},
+            {code: 'ES', name: 'Spain', nameRu: 'Испания', flag: '🇪🇸'},
+            {code: 'CA', name: 'Canada', nameRu: 'Канада', flag: '🇨🇦'},
+            {code: 'AU', name: 'Australia', nameRu: 'Австралия', flag: '🇦🇺'},
+            {code: 'BR', name: 'Brazil', nameRu: 'Бразилия', flag: '🇧🇷'},
+            {code: 'IN', name: 'India', nameRu: 'Индия', flag: '🇮🇳'},
+            {code: 'KR', name: 'South Korea', nameRu: 'Южная Корея', flag: '🇰🇷'},
+            {code: 'MX', name: 'Mexico', nameRu: 'Мексика', flag: '🇲🇽'},
+            {code: 'NL', name: 'Netherlands', nameRu: 'Нидерланды', flag: '🇳🇱'}
+        ];
+
+        function switchLanguage(lang) {
+            const enElements = document.querySelectorAll('.lang-en');
+            const ruElements = document.querySelectorAll('.lang-ru');
+            const langBtns = document.querySelectorAll('.lang-btn');
+
+            langBtns.forEach(btn => btn.classList.remove('active'));
+
+            if (lang === 'en') {
+                enElements.forEach(el => el.classList.remove('hidden'));
+                ruElements.forEach(el => el.classList.add('hidden'));
+                document.querySelector('.lang-btn[onclick*="en"]').classList.add('active');
+            } else {
+                enElements.forEach(el => el.classList.add('hidden'));
+                ruElements.forEach(el => el.classList.remove('hidden'));
+                document.querySelector('.lang-btn[onclick*="ru"]').classList.add('active');
+            }
+
+            populateCountries();
+        }
+
+        function populateCountries() {
+            const isRussian = !document.querySelector('.lang-ru').classList.contains('hidden');
+            const container = isRussian ? 
+                document.getElementById('popularCountriesRu') : 
+                document.getElementById('popularCountries');
+            
+            if (!container) return;
+
+            container.innerHTML = popularCountries.map(country => `
+                <div class="country-item" onclick="selectCountry('${country.code}')">
+                    <div class="country-flag">${country.flag}</div>
+                    <div class="country-code">${country.code}</div>
+                    <div style="font-size: 0.8rem; color: #666;">
+                        ${isRussian ? country.nameRu : country.name}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function selectCountry(code) {
+            const isRussian = !document.querySelector('.lang-ru').classList.contains('hidden');
+            const input = isRussian ? 
+                document.getElementById('countryInputRu') : 
+                document.getElementById('countryInput');
+            
+            input.value = code;
+            
+            if (isRussian) {
+                getFlagRu();
+            } else {
+                getFlag();
+            }
+        }
+
+        async function getFlag() {
+            const code = document.getElementById('countryInput').value.trim().toUpperCase();
+            const result = document.getElementById('flagResult');
+            
+            if (!code) {
+                result.textContent = 'Please enter a country code';
+                return;
+            }
+
+            if (code.length !== 2) {
+                result.textContent = 'Country code must be 2 letters';
+                return;
+            }
+
+            try {
+                result.textContent = 'Loading...';
+                const response = await fetch(`./${code}`);
+                
+                if (response.ok) {
+                    const flag = await response.text();
+                    result.textContent = `${code}: ${flag}`;
+                } else {
+                    result.textContent = `Country code "${code}" not found`;
+                }
+            } catch (error) {
+                result.textContent = 'Error loading flag';
+            }
+        }
+
+        async function getFlagRu() {
+            const code = document.getElementById('countryInputRu').value.trim().toUpperCase();
+            const result = document.getElementById('flagResultRu');
+            
+            if (!code) {
+                result.textContent = 'Пожалуйста, введите код страны';
+                return;
+            }
+
+            if (code.length !== 2) {
+                result.textContent = 'Код страны должен состоять из 2 букв';
+                return;
+            }
+
+            try {
+                result.textContent = 'Загрузка...';
+                const response = await fetch(`./${code}`);
+                
+                if (response.ok) {
+                    const flag = await response.text();
+                    result.textContent = `${code}: ${flag}`;
+                } else {
+                    result.textContent = `Код страны "${code}" не найден`;
+                }
+            } catch (error) {
+                result.textContent = 'Ошибка загрузки флага';
+            }
+        }
+
+        // Handle Enter key
+        document.addEventListener('DOMContentLoaded', function() {
+            populateCountries();
+            
+            document.getElementById('countryInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') getFlag();
+            });
+            
+            document.getElementById('countryInputRu').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') getFlagRu();
+            });
+        });
+    </script>
+</body>
+</html>

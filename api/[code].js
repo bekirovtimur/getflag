@@ -1,4 +1,4 @@
-import { readFileSync, existsSync } from 'fs';
+import { readFileSync } from 'fs';
 import { join } from 'path';
 
 export default function handler(req, res) {
@@ -13,16 +13,19 @@ export default function handler(req, res) {
   const upperCode = code.toUpperCase();
   
   try {
-    // Путь к файлу флага
-    const flagPath = join(process.cwd(), upperCode);
+    // Путь к JSON файлу с флагами
+    const flagsPath = join(process.cwd(), 'flags.json');
     
-    // Проверяем существование файла
-    if (!existsSync(flagPath)) {
+    // Читаем JSON файл
+    const flagsData = readFileSync(flagsPath, 'utf8');
+    const flags = JSON.parse(flagsData);
+    
+    // Получаем флаг по коду
+    const flag = flags[upperCode];
+    
+    if (!flag) {
       return res.status(404).send('❔');
     }
-    
-    // Читаем содержимое файла
-    const flag = readFileSync(flagPath, 'utf8').trim();
     
     // Устанавливаем заголовки
     res.setHeader('Content-Type', 'text/plain; charset=utf-8');

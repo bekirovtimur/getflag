@@ -13,9 +13,9 @@ A simple and lightweight API that returns country flag emojis by country codes. 
 ### 🚀 Features
 
 - **Simple**: Just make a GET request to get a flag emoji
-- **Fast**: Static files served directly
+- **Fast**: JSON-based storage for quick lookups
 - **Complete**: Supports all 250+ country codes (ISO 3166-1 alpha-2)
-- **No dependencies**: Pure static file hosting
+- **No dependencies**: Minimal serverless API
 - **Free**: Open source and free to use
 
 ### 📋 Usage
@@ -153,27 +153,34 @@ The API supports all ISO 3166-1 alpha-2 country codes. Here are some examples:
 git clone https://github.com/bekirovtimur/getflag.git
 cd getflag
 
-# Generate flag files (if not already present)
-chmod +x generate_flags.sh
-./generate_flags.sh
+# Install dependencies (if needed)
+npm install
 
-# Serve locally (Python)
-python3 -m http.server 8000
-
-# Or with Node.js
-npx http-server
+# Start development server
+npm run dev
 
 # Test
-curl -s http://localhost:8000/US
+curl -s http://localhost:3000/US
+```
+
+#### Deployment to Vercel
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy
+vercel
 ```
 
 ### 🔧 Technical Details
 
-- **File Structure**: Each country code corresponds to a static file containing the flag emoji
+- **Storage**: All flags stored in a single JSON file (`flags.json`)
+- **API**: Serverless function reads from JSON and returns flag by country code
 - **Content-Type**: `text/plain; charset=utf-8`
-- **File Size**: Each flag file is ~4 bytes (UTF-8 encoded emoji)
-- **Total Files**: 250+ country flag files
-- **No Database**: Pure static file serving for maximum performance
+- **CORS**: Enabled for all origins
+- **Caching**: 24-hour cache for optimal performance
+- **Total Countries**: 250+ country codes supported
+- **No Database**: JSON-based storage for simplicity and speed
 
 ### 📄 License
 
@@ -190,9 +197,9 @@ This project is open source and available under the [MIT License](LICENSE).
 ### 🚀 Возможности
 
 - **Простота**: Просто сделайте GET-запрос, чтобы получить эмодзи флага
-- **Скорость**: Статические файлы подаются напрямую
+- **Скорость**: Хранение в JSON для быстрого поиска
 - **Полнота**: Поддерживает все 250+ кодов стран (ISO 3166-1 alpha-2)
-- **Без зависимостей**: Чистый статический хостинг файлов
+- **Без зависимостей**: Минимальный serverless API
 - **Бесплатно**: Открытый исходный код и бесплатное использование
 
 ### 📋 Использование
@@ -330,27 +337,34 @@ API поддерживает все коды стран ISO 3166-1 alpha-2. Во
 git clone https://github.com/bekirovtimur/getflag.git
 cd getflag
 
-# Сгенерировать файлы флагов (если еще не созданы)
-chmod +x generate_flags.sh
-./generate_flags.sh
+# Установить зависимости (если нужно)
+npm install
 
-# Запустить локально (Python)
-python3 -m http.server 8000
-
-# Или с Node.js
-npx http-server
+# Запустить сервер разработки
+npm run dev
 
 # Тестирование
-curl -s http://localhost:8000/US
+curl -s http://localhost:3000/US
+```
+
+#### Развертывание на Vercel
+```bash
+# Установить Vercel CLI
+npm i -g vercel
+
+# Развернуть
+vercel
 ```
 
 ### 🔧 Технические детали
 
-- **Структура файлов**: Каждый код страны соответствует статическому файлу, содержащему эмодзи флага
+- **Хранение**: Все флаги хранятся в одном JSON файле (`flags.json`)
+- **API**: Serverless функция читает из JSON и возвращает флаг по коду страны
 - **Content-Type**: `text/plain; charset=utf-8`
-- **Размер файла**: Каждый файл флага ~4 байта (эмодзи в кодировке UTF-8)
-- **Общее количество файлов**: 250+ файлов флагов стран
-- **Без базы данных**: Чистая подача статических файлов для максимальной производительности
+- **CORS**: Включен для всех источников
+- **Кеширование**: 24-часовое кеширование для оптимальной производительности
+- **Всего стран**: Поддерживается 250+ кодов стран
+- **Без базы данных**: Хранение на основе JSON для простоты и скорости
 
 ### 📄 Лицензия
 
